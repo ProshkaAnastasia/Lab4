@@ -17,7 +17,7 @@ public class Broker extends Enterpreneur {
     public Broker(Currency budget){
         super(budget);
     }
-    static class Barker extends Worker{
+    class Barker extends Worker{
         Barker(String name, int age){
             super(name, age);
         }
@@ -63,6 +63,7 @@ public class Broker extends Enterpreneur {
         }
         private int getInstruction(Broker b){
             b.giveTask(this);
+            return (int)(Math.random() * 2);
         }
         private void Shout(){
 
