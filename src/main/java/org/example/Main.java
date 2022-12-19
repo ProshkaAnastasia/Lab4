@@ -25,7 +25,7 @@ public class Main {
         p.print(1, 100);
 
         Article article = new Article(new Newspaper(new Publisher(c, "Times"), 1, 1), "Title", "Content", Prospect.PROMISING);
-        p.approveArticle(article);
+        //p.approveArticle(article);
 
         Share share = new Share("Giant", new Currency(9, 5));
         Broker b = new Broker(new Currency(234, 67));

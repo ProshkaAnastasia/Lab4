@@ -9,6 +9,7 @@ import person.Person;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Vector;
 
 public class Broker extends Enterpreneur {
@@ -23,19 +24,89 @@ public class Broker extends Enterpreneur {
         Barker(Worker w){
             super(w.getName(), w.getAge());
         }
+        private ArrayList <Broker> myBroker;
+        private HashMap <Broker, pair> shareB;
+        {
+            myBroker = new ArrayList<>();
+            shareB = new HashMap<>();
+        }
+        private void add(Broker b, String name){
+            shareB.put(b, new pair(name, Share.getShare(name).getPrice()));
+        }
+        static class pair {
+            String name;
+            Currency price;
+            public pair(String name, Currency c){
+                this.name = name;
+                this.price = c;
+            }
+        }
         @Override
         public void work(){
+            HashMap <String, Currency> sB = new HashMap<>();
+            int j = 0;
+            for (var i : myBroker){
+                i.giveTask(this);
+                if(getInstruction(i) == 0){
+                    buy(new pair(shareB.get(i).name, shareB.get(i).price));
+                }
+                else{
+                    sell(new pair(shareB.get(i).name, shareB.get(i).price));
+                }
+            }
+        }
+        private void buy(pair p){
 
         }
-        public void Shout(){
+        private void sell(pair p){
+
+        }
+        private int getInstruction(Broker b){
+            b.giveTask(this);
+        }
+        private void Shout(){
 
         }
     }
     public void hire(Barker b){
         addWorker(b);
+        b.myBroker.add(this);
+    }
+    public void giveTask(Barker b){
+        int instruction = (int)(Math.random() * 100 + 1);
+        boolean added = false;
+        if (instruction < 50){
+            for (var i : shares.keySet()){
+                if ((int)(Math.random() * 100 + 1) % 2 == 0){
+                    b.add(this, i);
+                    added = true;
+                }
+            }
+            if (!added){
+                for (var i : shares.keySet()){
+                    b.add(this, i);
+                    break;
+                }
+            }
+        }
+        else{
+            for (var i : Share.getNames()){
+                if ((int)(Math.random() * 100 + 1) % 2 != 0){
+                    b.add(this, i);
+                    added = true;
+                }
+            }
+            if (!added){
+                for (var i : shares.keySet()){
+                    b.add(this, i);
+                    break;
+                }
+            }
+        }
     }
     public void fire(Barker b){
         removeWorker(b);
+        b.myBroker.remove(this);
     }
     public boolean buyOficialShares(String name, int quantity){
         Share s = Share.getShare(name);

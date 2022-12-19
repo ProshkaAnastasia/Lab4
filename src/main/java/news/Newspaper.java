@@ -27,7 +27,7 @@ public class Newspaper {
                     System.out.println("List of contents:");
                     int j = 1;
                     for (var i : n.art){
-                        System.out.println(Integer.toString(j) + i.getTitle() + " ----- " + Integer.toString(j));
+                        System.out.println(Integer.toString(j) + "   " + i.getTitle() + " ----- " + Integer.toString(j));
                         j++;
                     }
                     for (var i : n.art){

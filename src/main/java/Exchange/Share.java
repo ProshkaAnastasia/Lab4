@@ -5,6 +5,7 @@ import management.Currency;
 import management.enterpreneur.Broker;
 
 import java.util.HashMap;
+import java.util.Set;
 
 import static java.lang.Thread.sleep;
 
@@ -19,6 +20,9 @@ public class Share {
         else{
             return summary.get(name);
         }
+    }
+    public static Set<String> getNames(){
+        return summary.keySet();
     }
     public static void putNumber(String name, Broker b, boolean inc){
         if (inc){
